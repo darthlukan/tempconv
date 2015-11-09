@@ -19,10 +19,10 @@
 
 ```
     $ tempconv 32F
-    => 0C
+    => .00C
 
     $ tempconv 0C
-    => 32F
+    => 32.00F
 ```
 
 
