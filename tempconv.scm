@@ -2,32 +2,34 @@
 -e main -s
 !#
 
+(use-modules (ice-9 format))
+
 
 (define celcius
   (lambda (t)
-    (round (/ (* (- t 32) 5) 9))))
+    (/ (* (- t 32) 5) 9)))
 
 
 (define fahrenheit
   (lambda (t)
-    (round (+ (/ (* t 9) 5) 32))))
+    (+ (* 9/5 t) 32)))
 
 
 (define convert-temp
   (lambda (t u)
     (cond 
-      [(char-ci=? u #\f) (string-append "" (number->string (celcius t)) "C")]
-      [(char-ci=? u #\c) (string-append "" (number->string (fahrenheit t)) "F")])))
+      [(string-ci=? u "f") (format #f "~1,2fC"  (celcius t))]
+      [(string-ci=? u "c") (format #f "~1,2fF"  (fahrenheit t))])))
 
 
 (define yank-unit
   (lambda (s)
-    (string-ref s (- (string-length s) 1))))
+    (string-take-right s 1)))
 
 
 (define yank-temp
   (lambda (s)
-    (string->number (substring s 0 (- (string-length s) 1)))))
+    (string->number (string-drop-right s 1))))
 
 
 (define (main args)
